@@ -1,6 +1,6 @@
-import logo from './logo.svg'
 
-console.log(logo)
+console.log('hello from main')
+import './a'
 
 function component() {
   const element = document.createElement('div');
@@ -11,15 +11,11 @@ function component() {
 
   // Note that because a network request is involved, some indication
   // of loading would need to be shown in a production-level site/app.
-  button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
-    const print = module.default;
-
-    print();
-  });
+  // button.onclick = () => {
+  //   import ('./a')
+  // }
 
   return element;
 }
 
-
-__webpack_public_path__ = 'http://localhost:8080/'
 document.body.appendChild(component())
