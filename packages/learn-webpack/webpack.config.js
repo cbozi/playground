@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const { optimize } = require('webpack')
 
@@ -7,8 +8,17 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
     },
+    module: {
+        rules: [
+            {
+                test: /\.(svg)$/i,
+                use: 'file-loader'
+            }
+        ]
+    },
     optimization: {
         minimize: false,
         concatenateModules: false
-    }
+    },
+    plugins: [new HtmlWebpackPlugin()]
 }
