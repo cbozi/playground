@@ -1,0 +1,14 @@
+{
+  "name": "vite-dynamic-import",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.3.2",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.7"
+  }
+}
