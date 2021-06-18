@@ -5,8 +5,10 @@ const { optimize } = require('webpack')
 module.exports = {
     mode: 'production',
     entry: './src/index.js',
+    devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "https://yfd.fbcontent.cn/"
     },
     module: {
         rules: [
