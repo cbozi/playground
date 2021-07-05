@@ -1,6 +1,11 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
-const { optimize } = require("webpack");
+const fs = require("fs");
+
+const resourceRetryScript = fs.readFileSync(
+  require.resolve("@yuanfudao/resource-retry/dist/index.umd.min.js")
+);
 
 module.exports = {
   mode: "production",
@@ -8,14 +13,10 @@ module.exports = {
   devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "https://yfd.fbcontent.cn/",
+    publicPath: "https://blocked.cdn.com/",
   },
   module: {
     rules: [
-      {
-        test: /\.(svg)$/i,
-        use: "file-loader",
-      },
       {
         test: /\.ts$/,
         use: "ts-loader",
@@ -23,11 +24,19 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', ".ts"],
+    extensions: [".js", ".ts"],
   },
   optimization: {
-    minimize: false,
-    concatenateModules: false,
+    // minimize: false
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlPlugin({
+      filename: "index.html",
+      template: "!!pug-loader!index.pug",
+      templateParameters: { resourceRetryScript },
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "src/assets", to: "" }],
+    }),
+  ],
 };

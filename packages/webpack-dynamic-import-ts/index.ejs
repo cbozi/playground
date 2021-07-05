@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test</title>
+	<script><%- resourceRetryScript %></script>
+	<script>
+		var ResourceRetry = window['@yuanfudao/resource-retry']
+		if (ResourceRetry) {
+			ResourceRetry.addRetryDomain(['blocked.cdn.com', 'fallback.cdn.com'])
+			ResourceRetry.startRetry()
+		}
+	</script>
+	<link rel="stylesheet" href="http://blocked.cdn.com/index.css">
+</head>
+<body>
+	<main>
+		<h1>Hello</h1>
+		<img id="img" src="http://blocked.cdn.com/logo.png">
+	</main>
+	<script src="http://blocked.cdn.com/index.js"></script>
+</body>
+</html>
