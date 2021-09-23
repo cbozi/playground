@@ -1,21 +1,26 @@
 <template>
   <ul>
-    <ListItem v-for="(item, i) in list" :list="list" :index="i" @click="remove(item)" :key="item.id"></ListItem>
+    <ListItem v-for="(item, index) in list" :list="list" :index="index" @click="remove(index)" :key="item.id"></ListItem>
   </ul>
   <button @click="add">add</button>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onBeforeUpdate } from "vue";
 import ListItem from "./ListItem.vue";
+
+let maxId = 0
 
 export default defineComponent({
   components: { ListItem },
   setup() {
-    const list = ref<any>([]);
-    const add = () => list.value.push({ id: list.value.length });
-    const remove = (item: number) => {
-      list.value = list.value.filter((i:any) => i.id !== item.id);
+    const list = ref<any[]>([]);
+    const add = () => list.value.push({ id: maxId++ });
+    const remove = (index: number) => {
+      list.value.splice(index, 1)
     };
+
+    onBeforeUpdate(() => {console.log('beforeUpdate List')})
+
     return {
       list,
       add,
